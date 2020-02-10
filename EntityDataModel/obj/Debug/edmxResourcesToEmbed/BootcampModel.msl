@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PerikleousBootcampModelStoreContainer" CdmEntityContainer="PerikleousBootcampEntities">
+    <EntitySetMapping Name="Assignments">
+      <EntityTypeMapping TypeName="PerikleousBootcampModel.Assignments">
+        <MappingFragment StoreEntitySet="Assignments">
+          <ScalarProperty Name="assignmentId" ColumnName="assignmentId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="subDateTime" ColumnName="subDateTime" />
+          <ScalarProperty Name="oralMark" ColumnName="oralMark" />
+          <ScalarProperty Name="totalMark" ColumnName="totalMark" />
+          <ScalarProperty Name="courseId" ColumnName="courseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="PerikleousBootcampModel.Courses">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="courseId" ColumnName="courseId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="stream" ColumnName="stream" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="PerikleousBootcampModel.Students">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="studentId" ColumnName="studentId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+          <ScalarProperty Name="tuitionFees" ColumnName="tuitionFees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trainers">
+      <EntityTypeMapping TypeName="PerikleousBootcampModel.Trainers">
+        <MappingFragment StoreEntitySet="Trainers">
+          <ScalarProperty Name="trainerId" ColumnName="trainerId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CourseStudents" TypeName="PerikleousBootcampModel.CourseStudents" StoreEntitySet="CourseStudents">
+      <EndProperty Name="Courses">
+        <ScalarProperty Name="courseId" ColumnName="courseId" />
+      </EndProperty>
+      <EndProperty Name="Students">
+        <ScalarProperty Name="studentId" ColumnName="studentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CourseTrainers" TypeName="PerikleousBootcampModel.CourseTrainers" StoreEntitySet="CourseTrainers">
+      <EndProperty Name="Courses">
+        <ScalarProperty Name="courseId" ColumnName="courseId" />
+      </EndProperty>
+      <EndProperty Name="Trainers">
+        <ScalarProperty Name="trainerId" ColumnName="trainerId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

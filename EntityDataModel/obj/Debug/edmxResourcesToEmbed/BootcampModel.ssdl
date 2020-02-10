@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PerikleousBootcampModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Assignments">
+    <Key>
+      <PropertyRef Name="assignmentId" />
+    </Key>
+    <Property Name="assignmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="subDateTime" Type="datetime" Nullable="false" />
+    <Property Name="oralMark" Type="int" Nullable="false" />
+    <Property Name="totalMark" Type="int" Nullable="false" />
+    <Property Name="courseId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="courseId" />
+    </Key>
+    <Property Name="courseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="stream" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="start_date" Type="date" Nullable="false" />
+    <Property Name="end_date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseStudents">
+    <Key>
+      <PropertyRef Name="courseId" />
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="courseId" Type="int" Nullable="false" />
+    <Property Name="studentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseTrainers">
+    <Key>
+      <PropertyRef Name="courseId" />
+      <PropertyRef Name="trainerId" />
+    </Key>
+    <Property Name="courseId" Type="int" Nullable="false" />
+    <Property Name="trainerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dateOfBirth" Type="date" Nullable="false" />
+    <Property Name="tuitionFees" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trainers">
+    <Key>
+      <PropertyRef Name="trainerId" />
+    </Key>
+    <Property Name="trainerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="subject" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_58">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="CourseStudents">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_64">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="CourseStudents">
+        <PropertyRef Name="studentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_68">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="Assignments">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_82">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="CourseTrainers" Type="Self.CourseTrainers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="CourseTrainers">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_86">
+    <End Role="Trainers" Type="Self.Trainers" Multiplicity="1" />
+    <End Role="CourseTrainers" Type="Self.CourseTrainers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trainers">
+        <PropertyRef Name="trainerId" />
+      </Principal>
+      <Dependent Role="CourseTrainers">
+        <PropertyRef Name="trainerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PerikleousBootcampModelStoreContainer">
+    <EntitySet Name="Assignments" EntityType="Self.Assignments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseStudents" EntityType="Self.CourseStudents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseTrainers" EntityType="Self.CourseTrainers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trainers" EntityType="Self.Trainers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_58" Association="Self.FK_58">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseStudents" EntitySet="CourseStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_64" Association="Self.FK_64">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="CourseStudents" EntitySet="CourseStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_68" Association="Self.FK_68">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Assignments" EntitySet="Assignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_82" Association="Self.FK_82">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseTrainers" EntitySet="CourseTrainers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_86" Association="Self.FK_86">
+      <End Role="Trainers" EntitySet="Trainers" />
+      <End Role="CourseTrainers" EntitySet="CourseTrainers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

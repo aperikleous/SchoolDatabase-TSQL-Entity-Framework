@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PerikleousBootcampModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Assignments">
+    <Key>
+      <PropertyRef Name="assignmentId" />
+    </Key>
+    <Property Name="assignmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="subDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="oralMark" Type="Int32" Nullable="false" />
+    <Property Name="totalMark" Type="Int32" Nullable="false" />
+    <Property Name="courseId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK_68" FromRole="Assignments" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="courseId" />
+    </Key>
+    <Property Name="courseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="stream" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Assignments" Relationship="Self.FK_68" FromRole="Courses" ToRole="Assignments" />
+    <NavigationProperty Name="Students" Relationship="Self.CourseStudents" FromRole="Courses" ToRole="Students" />
+    <NavigationProperty Name="Trainers" Relationship="Self.CourseTrainers" FromRole="Courses" ToRole="Trainers" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="tuitionFees" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.CourseStudents" FromRole="Students" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="Trainers">
+    <Key>
+      <PropertyRef Name="trainerId" />
+    </Key>
+    <Property Name="trainerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.CourseTrainers" FromRole="Trainers" ToRole="Courses" />
+  </EntityType>
+  <Association Name="FK_68">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="Assignments">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CourseStudents">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+  </Association>
+  <Association Name="CourseTrainers">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <End Role="Trainers" Type="Self.Trainers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="PerikleousBootcampEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Assignments" EntityType="Self.Assignments" />
+    <EntitySet Name="Courses" EntityType="Self.Courses" />
+    <EntitySet Name="Students" EntityType="Self.Students" />
+    <EntitySet Name="Trainers" EntityType="Self.Trainers" />
+    <AssociationSet Name="FK_68" Association="Self.FK_68">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Assignments" EntitySet="Assignments" />
+    </AssociationSet>
+    <AssociationSet Name="CourseStudents" Association="Self.CourseStudents">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="CourseTrainers" Association="Self.CourseTrainers">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Trainers" EntitySet="Trainers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
